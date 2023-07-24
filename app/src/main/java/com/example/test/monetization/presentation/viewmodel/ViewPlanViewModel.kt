@@ -2,6 +2,7 @@ package com.viewlift.monetization.presentation.viewmodel
 
 import android.app.Activity
 import android.app.Application
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -9,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptions
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
+import com.example.test.monetization.presentation.util.PageColors
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -34,6 +36,7 @@ import com.viewlift.monetization.presentation.intent.ViewPlanIntent
 import com.viewlift.monetization.presentation.uistate.ViewPlanUiState
 import com.viewlift.monetization.presentation.uistate.ViewPlanUiState.PartialState
 import com.viewlift.monetization.presentation.uistate.ViewPlanUiState.PartialState.Loading
+import com.viewlift.monetization.presentation.util.parse
 import com.viewlift.network.BootStrapQuery
 import com.viewlift.network.data.remote.model.response.ContentDatum
 import com.viewlift.network.domain.repository.BootstrapRepository
@@ -526,6 +529,53 @@ ViewPlanViewModel @Inject constructor(
             eventData.addProperty("planType", planResponse?.planDetails?.getOrNull(0)?.title ?: "")
 
             eventTrackingSDK.sendBeaconEvent(BeaconEventType.PLAN_SELECTION.eventType, getBeaconRequestData(), eventData)
+        }
+    }
+
+    fun updateBootstrap(bootstrap: Any?) {
+        bootstrap?.appcmsMain?.brand?.general?.backgroundColor?.toColorInt()?.let {
+            PageColors.backgroundColor = Color(it)
+        }
+
+        bootstrap?.appcmsMain?.brand?.cta?.secondary?.styleAttributesWithBorderParts?.backgroundColor?.toColorInt()
+            ?.let {
+                PageColors.chipBgColor = Color(it)
+            }
+
+        bootstrap?.appcmsMain?.brand?.general?.pageTitleColor?.toColorInt()?.let {
+            PageColors.titleColor = Color(it)
+        }
+        bootstrap?.appcmsMain?.brand?.general?.textColor?.toColorInt()?.let {
+            PageColors.subTitleColor = Color(it)
+        }
+        bootstrap?.appcmsMain?.brand?.general?.boxShadow?.toColorInt()?.let {
+            PageColors.shadowColor = Color(it)
+        }
+        bootstrap?.appcmsMain?.brand?.cta?.primary?.styleAttributesWithBorderParts?.backgroundColor?.toColorInt()
+            ?.let {
+                PageColors.buttonColor = Color(it)
+            }
+        bootstrap?.appcmsMain?.brand?.general?.skeletonColor?.toColorInt()?.let {
+            PageColors.selectedChipBgColor = Color(it)
+        }
+        bootstrap?.appcmsMain?.brand?.cta?.primary?.styleAttributesWithBorderParts?.backgroundColor?.toColorInt()
+            ?.let {
+                PageColors.selectedChipBorderColor = Color(it)
+            }
+        bootstrap?.appcmsMain?.brand?.footer?.textColor?.toColorInt()?.let {
+            PageColors.selectedChipTextColor = Color(it)
+        }
+        bootstrap?.appcmsPlatform?.subscriptionFlowContent?.subscriptionFlowContent?.subscriptionButtonText?.let {
+            btnText = it
+        }
+        bootstrap?.appcmsMain?.apiBaseUrl.let {
+            apiBaseUrl = it
+        }
+        bootstrap?.appcmsMain?.brand?.player?.progressBarColor?.toColorInt()?.let {
+            PageColors.progressBarColor = Color(it)
+        }
+        bootstrap?.appcmsMain?.brand?.player?.progressBarBackgroundColor?.toColorInt()?.let {
+            PageColors.progressBarBackgroundColor = Color(it)
         }
     }
 
