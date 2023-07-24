@@ -15,6 +15,7 @@ import com.example.test.monetization.presentation.util.PageColors.shadowColor
 import com.example.test.monetization.presentation.util.PageColors.subTitleColor
 import com.example.test.monetization.presentation.util.PageColors.titleColor
 import com.viewlift.monetization.presentation.model.PlanSettings
+import com.viewlift.monetization.presentation.viewmodel.ViewPlanViewModel
 import com.viewlift.network.BootStrapQuery
 
 private const val TAG = "UIUtils"
@@ -24,8 +25,8 @@ fun Color.Companion.parse(colorString: String): Color =
 fun getPageSettings(
     bootstrap: BootStrapQuery.Bootstrap?,
     settings: Any?,
-    defaultBtnLabel: String, defaultTermsCondition: String
-
+    defaultBtnLabel: String, defaultTermsCondition: String,
+    viewModel: ViewPlanViewModel = hiltViewModel()
 ): PlanSettings {
 
     var btnText = defaultBtnLabel
