@@ -1,5 +1,6 @@
 package com.viewlift.monetization.presentation.util
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.toColorInt
 import com.example.test.monetization.presentation.util.PageColors.backgroundColor
@@ -80,7 +81,9 @@ fun getPageSettings(
     bootstrap?.appcmsMain?.brand?.player?.progressBarBackgroundColor?.toColorInt()?.let {
         progressBarBackgroundColor = Color(it)
     }
-`
+
+    Log.e("aryan", "aryan")
+
     return PlanSettings(
         backgroundColor = backgroundColor,
         chipBgColor = chipBgColor,
